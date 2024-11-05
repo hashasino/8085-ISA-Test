@@ -14,8 +14,6 @@ public class UniqueRandomIntegers {
 		int minValue = 1;   // Minimum value (inclusive)
 		int maxValue = arraySize; // Maximum value (inclusive)
 
-
-
 		int[] uniqueIntegers = new int[arraySize];
 		HashSet<Integer> uniqueSet = new HashSet<>();
 		Random random = new Random();

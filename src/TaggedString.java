@@ -1,3 +1,4 @@
+
 class TaggedString {
 	private String value;
 	private boolean accessed;

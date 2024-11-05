@@ -64,7 +64,8 @@ public class ISA8085Test {
 					default:
 						System.out.println("Invalid input. Try again.");
 				}
-			} while (input.isEmpty() || (input.charAt(0) != 'y' && input.charAt(0) != 'Y' && input.charAt(0) != 'n' && input.charAt(0) != 'N'));
+			} while (input.isEmpty() || (input.charAt(0) != 'y' && input.charAt(0) != 'Y'
+					&& input.charAt(0) != 'n' && input.charAt(0) != 'N'));
 		}
 
 		EndScreen();
@@ -78,7 +79,7 @@ public class ISA8085Test {
 	static void Disclaimer() {
 		System.out.println("\nThis program is to test you for recalling of 8085 Instructions.");
 		System.out.println("\n- The OPCODE of the instruction will be shown to you, and you must recall it's function & other things.");
-		System.out.println("- Input at what you can recall into the terminal, then press Enter to check if it's correct.");
+		System.out.println("- Input what you can recall into the terminal, then press Enter to check if it's correct.");
 		System.out.println("\n- If it is correct then select YES, else select NO. Once you are able to score 100% or close, you will have passed the test.");
 		System.out.println("\n* As this is a self-graded test, whether you do well or not will depend on how you grade yourself, despite of how you've actually performed.");
 		System.out.println("* So be honest with yourself as your only competition here is you yourself.");
@@ -99,7 +100,7 @@ public class ISA8085Test {
 		System.out.println("\n" + 'z' + " more to go (x%)");
 		System.out.println("\tCI - 1" + " | LI - 2" + " | AI - 3" + " | BI - 4" + " | DTI - 5");
 
-		System.out.println("\n78% correct. 33% unencountered.");
+		System.out.println("\n72% answered. Of which, 78% correct.");
 //		System.out.println("You're almost there!");
 //		System.out.println("Excellent! You have passed with flying colors!");
 	}
