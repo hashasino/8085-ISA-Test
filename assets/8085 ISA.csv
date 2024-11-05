@@ -1,0 +1,24 @@
+TYPE,OPCODE,OPERAND,FUNCTION,EXPLAINATION
+,,,,
+CI,NOP,None, No operation,"No operation is performed,  i.e., the instruction is fetched and decoded."
+CI,HLT,None, Halt and enter wait state, The CPU finishes executing the current instruction and stops further execution. An interrupt or reset is necessary to exit from the halt state.
+CI,DI,None, Disable Interrupts, The interrupt enable flip-flop is reset and all the interrupts are disabled except TRAP.
+CI,EI,None, Enable Interrupts, The interrupt enable flip-flop is set and all the interrupts are enabled.
+CI,RIM,None, Read Interrupt Mask,"This instruction is used to read the status of interrupts 7.5, 6.5, 5.5 and read serial data input bit."
+CI,SIM,None, Set Interrupt Mask,"This instruction is used to implement the interrupts 7.5, 6.5, 5.5, and serial data output."
+,,,,
+LI,CMP,R M,Compare the register or Memory with the accumulator,The contents of the operand (register or memory) are M compared with the contents of the accumulator.
+LI,CPI,8-bit data,Compare immediate with the accumulator,The second byte data is compared with the contents of the accumulator.
+LI,ANA,R M,Logical AND register or Memory with the accumulator,"The contents of the accumulator are logically AND with M the contents of the register or memory, and the result is placed in the accumulator."
+LI,ANI,8-bit data,Logical AND immediate with the accumulator,The contents of the accumulator are logically AND with the 8-bit data and the result is placed in the accumulator.
+LI,XRA,R M,Exclusive OR register or Memory with the accumulator,"The contents of the accumulator are Exclusive OR with M the contents of the register or memory, and the result is placed in the accumulator."
+LI,XRI,8-bit data,Exclusive OR immediate with the accumulator,The contents of the accumulator are Exclusive OR with the 8-bit data and the result is placed in the accumulator.
+LI,ORA,R M,Logical OR register or Memory with the accumulator,"The contents of the accumulator are logically OR with M the contents of the register or memory, and result is placed in the accumulator."
+LI,ORI,8-bit data,Logical OR immediate with the accumulator,The contents of the accumulator are logically OR with the 8-bit data and the result is placed in the accumulator.
+LI,RLC,None,Rotate the accumulator left,Each binary bit of the accumulator is rotated left by one position. Bit D7 is placed in the position of D0 as well as in the Carry flag. CY is modified according to bit D7
+LI,RRC,None,Rotate the accumulator right,Each binary bit of the accumulator is rotated right by one position. Bit D0 is placed in the position of D7 as well as in the Carry flag. CY is modified according to bit D0.
+LI,RAL,None,Rotate the accumulator left through carry,"Each binary bit of the accumulator is rotated left by one position through the Carry flag. Bit D7 is placed in the Carry flag, and the Carry flag is placed in the least significant position D0 CY is modified according to bit D7"
+LI,RAR,None,Rotate the accumulator right through carry,"Each binary bit of the accumulator is rotated right by one position through the Carry flag. Bit D0 is placed in the Carry flag, and the Carry flag is placed in the most significant position D7 CY is modified according to bit D0."
+LI,CMA,None,Complement accumulator,The contents of the accumulator are complemented. No flags are affected.
+LI,CMC,None,Complement carry,The Carry flag is complemented. No other flags are affected.
+LI,STC,None,Set Carry,Set Carry.
