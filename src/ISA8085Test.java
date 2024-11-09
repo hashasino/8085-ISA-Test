@@ -1,15 +1,16 @@
-import java.util.List;
+import java.util.List; // Importing non-default libraries
 import java.util.Scanner;
 
-public class ISA8085Test {
+public class ISA8085Test { // Creating the program class
 
-	static int counter = 0;
+	static int counter = 0; // Initializing class's global variables
 	static int Score = 0;
 	final static int[] uniqueIntegers = UniqueRandomIntegers.getUniqueIntegers(); //Generating random order
 
+	// The main function
 	public static void main(String[] args) {
 
-		Disclaimer();
+		Disclaimer(); // START
 
 		//Loading CSV data
 		ISA8085Reader reader = new ISA8085Reader();
@@ -23,12 +24,15 @@ public class ISA8085Test {
 		//Loop start
 		while (!input.equalsIgnoreCase("STOP") && counter <= uniqueIntegers.length - 1) {
 
+			// Question
 			System.out.println("\n" + (counter + 1) + ". The OPCODE is: " + csvData.get(uniqueIntegers[counter])[1]);
 
+			// Asking for user's answer
 			System.out.print("\nEnter description: ");
 			input = sc.nextLine();
 			if (input.equalsIgnoreCase("stop")) break;
 
+			// Showing the correct answer for self-evaluation
 			System.out.println("\nEvaluate your answer using the following information:");
 			System.out.println("    OPCODE: " + csvData.get(uniqueIntegers[counter])[1]);
 			System.out.println("    TYPE: " + csvData.get(uniqueIntegers[counter])[0]);
@@ -36,18 +40,20 @@ public class ISA8085Test {
 			System.out.println("    FUNCTION: " + csvData.get(uniqueIntegers[counter])[3]);
 			System.out.println("    EXPLANATION: " + csvData.get(uniqueIntegers[counter])[4]);
 
-			counter++;
+			counter++; // Incrementing question number
 
 			System.out.println("\nWas your description correct? YES/NO");
 			do {
-				input = sc.nextLine();
-				if (input.equalsIgnoreCase("stop")) break;
+				input = sc.nextLine(); //Taking input
 
+				// Checking for special cases
+				if (input.equalsIgnoreCase("stop")) break;
 				if (input.isEmpty()) {
 					System.out.println("Invalid input. Try again.");
 					continue;
 				}
 
+				// Checking for YES/NO
 				switch (input.charAt(0)) {
 					case 'y':
 					case 'Y':
@@ -66,13 +72,15 @@ public class ISA8085Test {
 					&& input.charAt(0) != 'n' && input.charAt(0) != 'N'));
 		}
 
-		EndScreen(uniqueIntegers.length, counter, Score);
+		EndScreen(uniqueIntegers.length, counter, Score); // END PROGRAM
 	}
 
+	// To print dividers ========
 	static void printMultiChar() {
 		System.out.println('\n' + "=".repeat(160));
 	}
 
+	// Start screen message / Program context
 	static void Disclaimer() {
 		System.out.println("\nThis program is to test you for recalling of 8085 Instructions.");
 		System.out.println("\n- The OPCODE of the instruction will be shown to you, and you must recall it's function & other things.");
@@ -84,10 +92,12 @@ public class ISA8085Test {
 		System.out.println("\nWhen you are ready to proceed, enter anything. Enter STOP to stop the program & display results.\n");
 	}
 
+	// To display scores & stats after end program
 	static void EndScreen(int Total, int Answered, int Right) {
 
-		printMultiChar();
+		printMultiChar(); //Divider
 
+		// Doing Score Calculations
 		int Remaining = Total - Answered;
 		int percentAnswered = Math.round((float) Answered / Total * 100);
 		int percentRight = 0, percentTotal = 0;
@@ -97,8 +107,10 @@ public class ISA8085Test {
 		} catch (Exception _) {
 		}
 
+		// Printing out the Scores n Stats
 		System.out.println("\n Questions answered: " + Answered + " out of " + Total + " total");
 		System.out.print("\t CI - 1" + " | LI - 2" + " | AI - 3" + " | BI - 4" + " | DTI - 5");
+
 		System.out.println("\n\n Questions right: " + Right + " out of " + Answered + " answered");
 		System.out.print("\t CI - 1" + " | LI - 2" + " | AI - 3" + " | BI - 4" + " | DTI - 5");
 
