@@ -22,7 +22,7 @@ public class ISA8085Reader { // Creating reader class
 	public static void main(String[] args) {
 
 		// Creating an instance of ISA8085Reader and loading the CSV data
-		loadCsvData("assets/8085 ISA.csv");
+		loadCsvData("H:/My Drive/Programming/Java/IdeaProjects/8085 ISA Test/assets/8085 ISA.csv");
 
 		// Setting default output format
 		OutputFormat format = OutputFormat.TABLE;
@@ -98,7 +98,7 @@ public class ISA8085Reader { // Creating reader class
 
 		int[] typeCount = new int[5];
 
-		loadCsvData("assets/8085 ISA.csv");
+		loadCsvData("H:/My Drive/Programming/Java/IdeaProjects/8085 ISA Test/assets/8085 ISA.csv");
 
 		for (String[] csvDatum : CsvData) {
 

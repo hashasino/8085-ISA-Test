@@ -13,7 +13,7 @@ public class ISA8085Test { // Creating the test class
 		Disclaimer(); // START
 
 		//Loading CSV data
-		ISA8085Reader.loadCsvData("assets/8085 ISA.csv");
+		ISA8085Reader.loadCsvData("H:/My Drive/Programming/Java/IdeaProjects/8085 ISA Test/assets/8085 ISA.csv");
 		List<String[]> csvData = ISA8085Reader.getCsvData();
 
 		//Instantiating new scanner object
@@ -122,8 +122,8 @@ public class ISA8085Test { // Creating the test class
 		System.out.println("\n\n Questions right: " + Right + " out of " + Answered + " answered");
 		System.out.print("\t CI - " + rT[0] + " | LI - " + rT[1] + " | AI - " + rT[2] + " | BI - " + rT[3] + " | DTI - " + rT[4]);
 
-		System.out.println("\n\n  In short, " + percentAnswered + "% answered of which " + percentRight + "% right (i.e. " + percentTotal + "% of total)");
-		System.out.println("\n\t\t\t\t\t" + Remaining + " more to go_");
+		System.out.println("\n\n In short, " + percentAnswered + "% answered of which " + percentRight + "% right (i.e. " + percentTotal + "% of total)");
+		System.out.println("\n                  " + Remaining + " more to go_");
 
 //		System.out.println("You're almost there!");
 //		System.out.println("Excellent! You have passed with flying colors!");
