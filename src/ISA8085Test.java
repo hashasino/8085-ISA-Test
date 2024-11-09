@@ -1,7 +1,7 @@
 import java.util.List; // Importing non-default libraries
 import java.util.Scanner;
 
-public class ISA8085Test { // Creating the program class
+public class ISA8085Test { // Creating the test class
 
 	static int counter = 0; // Initializing class's global variables
 	static int Score = 0;
@@ -13,9 +13,8 @@ public class ISA8085Test { // Creating the program class
 		Disclaimer(); // START
 
 		//Loading CSV data
-		ISA8085Reader reader = new ISA8085Reader();
-		reader.loadCsvData("assets/8085 ISA.csv");
-		List<String[]> csvData = reader.getCsvData();
+		ISA8085Reader.loadCsvData("assets/8085 ISA.csv");
+		List<String[]> csvData = ISA8085Reader.getCsvData();
 
 		//Instantiating new scanner object
 		Scanner sc = new Scanner(System.in);
@@ -40,6 +39,9 @@ public class ISA8085Test { // Creating the program class
 			System.out.println("    FUNCTION: " + csvData.get(uniqueIntegers[counter])[3]);
 			System.out.println("    EXPLANATION: " + csvData.get(uniqueIntegers[counter])[4]);
 
+			// Incrementing stat for the TYPE of instruction
+			ISA8085Reader.tagTYPEAnswered(csvData.get(uniqueIntegers[counter])[0]);
+
 			counter++; // Incrementing question number
 
 			System.out.println("\nWas your description correct? YES/NO");
@@ -57,6 +59,7 @@ public class ISA8085Test { // Creating the program class
 				switch (input.charAt(0)) {
 					case 'y':
 					case 'Y':
+						ISA8085Reader.tagTYPERight(csvData.get(uniqueIntegers[counter - 1])[0]);
 						System.out.println("\nGood job! Score: " + Score + " + 1 = " + (++Score));
 						printMultiChar();
 						break;
@@ -103,16 +106,21 @@ public class ISA8085Test { // Creating the program class
 		int percentRight = 0, percentTotal = 0;
 		try {
 			percentRight = Math.round((float) Right / Answered * 100);
-			percentTotal = percentRight / percentAnswered;
+			percentTotal = percentAnswered * percentRight / 100;
 		} catch (Exception _) {
 		}
 
+		// Doing Stats Calculations
+		int[] tT = ISA8085Reader.totalTYPECounter(); // Total TYPE count
+		int[] aT = ISA8085Reader.answeredTYPE; // Total TYPE answered
+		int[] rT = ISA8085Reader.typeRight; // Total TYPE right
+
 		// Printing out the Scores n Stats
 		System.out.println("\n Questions answered: " + Answered + " out of " + Total + " total");
-		System.out.print("\t CI - 1" + " | LI - 2" + " | AI - 3" + " | BI - 4" + " | DTI - 5");
+		System.out.print("\t CI - " + aT[0] + " | LI - " + aT[1] + " | AI - " + aT[2] + " | BI - " + aT[3] + " | DTI - " + aT[4]);
 
 		System.out.println("\n\n Questions right: " + Right + " out of " + Answered + " answered");
-		System.out.print("\t CI - 1" + " | LI - 2" + " | AI - 3" + " | BI - 4" + " | DTI - 5");
+		System.out.print("\t CI - " + rT[0] + " | LI - " + rT[1] + " | AI - " + rT[2] + " | BI - " + rT[3] + " | DTI - " + rT[4]);
 
 		System.out.println("\n\n  In short, " + percentAnswered + "% answered of which " + percentRight + "% right (i.e. " + percentTotal + "% of total)");
 		System.out.println("\n\t\t\t\t\t" + Remaining + " more to go_");

@@ -1,25 +1,33 @@
-import java.io.BufferedReader;
+import java.io.BufferedReader; // Importing non-default libraries
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ISA8085Reader {
-	// Format enumeration with only TABLE and DETAILED options
+public class ISA8085Reader { // Creating reader class
+
+	// To provide options to display the stored data in multiple formats
 	public enum OutputFormat {
 		TABLE,      // Traditional table format
 		DETAILED    // Detailed multi-line format
 	}
 
 	// List to store the data
-	private final List<String[]> csvData = new ArrayList<>();
+	private static final List<String[]> CsvData = new ArrayList<>();
 
+	static int[] answeredTYPE = new int[5];
+	static int[] typeRight = new int[5];
+
+	//The main function with example implementation
 	public static void main(String[] args) {
-		// Hardcoded file path
-		String filePath = "assets/8085 ISA.csv";
-		OutputFormat format = OutputFormat.TABLE;  // Default format
 
-		// Parse format argument if provided
+		// Creating an instance of ISA8085Reader and loading the CSV data
+		loadCsvData("assets/8085 ISA.csv");
+
+		// Setting default output format
+		OutputFormat format = OutputFormat.TABLE;
+
+		// Parsing format argument if provided
 		if (args.length > 0) {
 			try {
 				format = OutputFormat.valueOf(args[0].toUpperCase());
@@ -28,20 +36,16 @@ public class ISA8085Reader {
 			}
 		}
 
-		// Create an instance of ISA8085Reader and load the CSV data
-		ISA8085Reader reader = new ISA8085Reader();
-		reader.loadCsvData(filePath);
-
-		// Print the loaded data based on the chosen format
-		reader.printData(format);
+		printData(format); // Printing the loaded data based on the chosen format
 	}
 
 	// Method to load CSV data and store it in the program
-	public void loadCsvData(String filePath) {
+	public static void loadCsvData(String filePath) {
 		try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+
 			// Read header and store it as the first entry in csvData
 			String[] headers = parseCsvLine(br.readLine());
-			csvData.add(headers);
+			CsvData.add(headers);
 
 			// Skip empty line
 			br.readLine();
@@ -52,7 +56,7 @@ public class ISA8085Reader {
 				if (!line.trim().isEmpty()) {
 					String[] data = parseCsvLine(line);
 					if (data.length >= 5) {
-						csvData.add(data);
+						CsvData.add(data);
 					}
 				}
 			}
@@ -88,9 +92,88 @@ public class ISA8085Reader {
 		return tokens.toArray(new String[0]);
 	}
 
+
+	// To get total count for each TYPE of data i.e. CI/LI/AI/BI/DTI
+	public static int[] totalTYPECounter() {
+
+		int[] typeCount = new int[5];
+
+		loadCsvData("assets/8085 ISA.csv");
+
+		for (String[] csvDatum : CsvData) {
+
+			switch (csvDatum[0]) {
+				case "CI":
+					typeCount[0]++;
+					break;
+				case "LI":
+					typeCount[1]++;
+					break;
+				case "DI":
+					typeCount[2]++;
+					break;
+				case "BI":
+					typeCount[3]++;
+					break;
+				case "DTI":
+					typeCount[4]++;
+					break;
+				default:
+					break;
+			}
+		}
+
+		return typeCount;
+	}
+
+	public static void tagTYPEAnswered(String type) {
+		switch (type) {
+			case "CI":
+				answeredTYPE[0]++;
+				break;
+			case "LI":
+				answeredTYPE[1]++;
+				break;
+			case "DI":
+				answeredTYPE[2]++;
+				break;
+			case "BI":
+				answeredTYPE[3]++;
+				break;
+			case "DTI":
+				answeredTYPE[4]++;
+				break;
+			default:
+				break;
+		}
+	}
+
+	public static void tagTYPERight(String type) {
+		switch (type) {
+			case "CI":
+				typeRight[0]++;
+				break;
+			case "LI":
+				typeRight[1]++;
+				break;
+			case "DI":
+				typeRight[2]++;
+				break;
+			case "BI":
+				typeRight[3]++;
+				break;
+			case "DTI":
+				typeRight[4]++;
+				break;
+			default:
+				break;
+		}
+	}
+
+
 	// Public getter to access CSV data from other classes
-	public List<String[]> getCsvData() {
-		return compactRows(csvData);
+	public static List<String[]> getCsvData() {
+		return compactRows(CsvData);
 	}
 
 	public static List<String[]> compactRows(List<String[]> data) {
@@ -123,14 +206,15 @@ public class ISA8085Reader {
 		return true;
 	}
 
+
 	// Method to print data based on the output format
-	public void printData(OutputFormat format) {
+	public static void printData(OutputFormat format) {
 		// Print header
-		printHeader(csvData.getFirst(), format);
+		printHeader(CsvData.getFirst(), format);
 
 		// Print each row of data
-		for (int i = 1; i < csvData.size(); i++) {
-			printRow(csvData.get(i), format);
+		for (int i = 1; i < CsvData.size(); i++) {
+			printRow(CsvData.get(i), format);
 		}
 	}
 
