@@ -2,6 +2,11 @@ import java.util.List;
 import java.util.Scanner;
 
 public class ISA8085Test {
+
+	static int counter = 0;
+	static int Score = 0;
+	final static int[] uniqueIntegers = UniqueRandomIntegers.getUniqueIntegers(); //Generating random order
+
 	public static void main(String[] args) {
 
 		Disclaimer();
@@ -11,19 +16,14 @@ public class ISA8085Test {
 		reader.loadCsvData("assets/8085 ISA.csv");
 		List<String[]> csvData = reader.getCsvData();
 
-		int[] uniqueIntegers = UniqueRandomIntegers.getUniqueIntegers(); //Generating random order
-
-		int counter = 1;
-		int Score = 0;
-
 		//Instantiating new scanner object
 		Scanner sc = new Scanner(System.in);
 		String input = sc.nextLine();
 
 		//Loop start
-		while (!input.equalsIgnoreCase("STOP") && counter <= uniqueIntegers.length) {
+		while (!input.equalsIgnoreCase("STOP") && counter <= uniqueIntegers.length - 1) {
 
-			System.out.println("\n" + counter + ". The OPCODE is: " + csvData.get(uniqueIntegers[counter])[1]);
+			System.out.println("\n" + (counter + 1) + ". The OPCODE is: " + csvData.get(uniqueIntegers[counter])[1]);
 
 			System.out.print("\nEnter description: ");
 			input = sc.nextLine();
@@ -51,13 +51,11 @@ public class ISA8085Test {
 				switch (input.charAt(0)) {
 					case 'y':
 					case 'Y':
-//						printMultiChar();
 						System.out.println("\nGood job! Score: " + Score + " + 1 = " + (++Score));
 						printMultiChar();
 						break;
 					case 'n':
 					case 'N':
-//						printMultiChar();
 						System.out.println("\nNext time. Score: " + Score);
 						printMultiChar();
 						break;
@@ -68,8 +66,7 @@ public class ISA8085Test {
 					&& input.charAt(0) != 'n' && input.charAt(0) != 'N'));
 		}
 
-		EndScreen();
-		System.out.println(counter);
+		EndScreen(uniqueIntegers.length, counter, Score);
 	}
 
 	static void printMultiChar() {
@@ -87,20 +84,27 @@ public class ISA8085Test {
 		System.out.println("\nWhen you are ready to proceed, enter anything. Enter STOP to stop the program & display results.\n");
 	}
 
-	static void EndScreen() {
+	static void EndScreen(int Total, int Answered, int Right) {
 
 		printMultiChar();
 
-		System.out.println("\nTotal questions encountered: " + 'x' + " (z%)");
-		System.out.print("\tCI - 1" + " | LI - 2" + " | AI - 3" + " | BI - 4" + " | DTI - 5");
+		int Remaining = Total - Answered;
+		int percentAnswered = Math.round((float) Answered / Total * 100);
+		int percentRight = 0, percentTotal = 0;
+		try {
+			percentRight = Math.round((float) Right / Answered * 100);
+			percentTotal = percentRight / percentAnswered;
+		} catch (Exception _) {
+		}
 
-		System.out.println("\nTotal questions right: " + 'y' + " (y%)");
-		System.out.print("\tCI - 1" + " | LI - 2" + " | AI - 3" + " | BI - 4" + " | DTI - 5");
+		System.out.println("\n Questions answered: " + Answered + " out of " + Total + " total");
+		System.out.print("\t CI - 1" + " | LI - 2" + " | AI - 3" + " | BI - 4" + " | DTI - 5");
+		System.out.println("\n\n Questions right: " + Right + " out of " + Answered + " answered");
+		System.out.print("\t CI - 1" + " | LI - 2" + " | AI - 3" + " | BI - 4" + " | DTI - 5");
 
-		System.out.println("\n" + 'z' + " more to go (x%)");
-		System.out.println("\tCI - 1" + " | LI - 2" + " | AI - 3" + " | BI - 4" + " | DTI - 5");
+		System.out.println("\n\n  In short, " + percentAnswered + "% answered of which " + percentRight + "% right (i.e. " + percentTotal + "% of total)");
+		System.out.println("\n\t\t\t\t\t" + Remaining + " more to go_");
 
-		System.out.println("\n72% answered. Of which, 78% correct.");
 //		System.out.println("You're almost there!");
 //		System.out.println("Excellent! You have passed with flying colors!");
 	}
