@@ -7,13 +7,13 @@ CI,EI,None, Enable Interrupts, The interrupt enable flip-flop is set and all the
 CI,RIM,None, Read Interrupt Mask,"This instruction is used to read the status of interrupts 7.5, 6.5, 5.5 and read serial data input bit."
 CI,SIM,None, Set Interrupt Mask,"This instruction is used to implement the interrupts 7.5, 6.5, 5.5, and serial data output."
 ,,,,
-LI,CMP,R M,Compare the register or Memory with the accumulator,The contents of the operand (register or memory) are M compared with the contents of the accumulator.
+LI,CMP,R/M,Compare the register or memory with the accumulator,The contents of the operand (register or memory) are compared with the contents of the accumulator.
 LI,CPI,8-bit data,Compare immediate with the accumulator,The second byte data is compared with the contents of the accumulator.
-LI,ANA,R M,Logical AND register or Memory with the accumulator,"The contents of the accumulator are logically AND with M the contents of the register or memory, and the result is placed in the accumulator."
+LI,ANA,R/M,Logical AND register or memory with the accumulator,"The contents of the accumulator are logically AND with the contents of the register or memory, and the result is placed in the accumulator."
 LI,ANI,8-bit data,Logical AND immediate with the accumulator,The contents of the accumulator are logically AND with the 8-bit data and the result is placed in the accumulator.
-LI,XRA,R M,Exclusive OR register or Memory with the accumulator,"The contents of the accumulator are Exclusive OR with M the contents of the register or memory, and the result is placed in the accumulator."
+LI,XRA,R/M,Exclusive OR register or Memory with the accumulator,"The contents of the accumulator are Exclusive OR with the contents of the register or memory, and the result is placed in the accumulator."
 LI,XRI,8-bit data,Exclusive OR immediate with the accumulator,The contents of the accumulator are Exclusive OR with the 8-bit data and the result is placed in the accumulator.
-LI,ORA,R M,Logical OR register or Memory with the accumulator,"The contents of the accumulator are logically OR with M the contents of the register or memory, and result is placed in the accumulator."
+LI,ORA,R/M,Logical OR register or memory with the accumulator,"The contents of the accumulator are logically OR with the contents of the register or memory, and result is placed in the accumulator."
 LI,ORI,8-bit data,Logical OR immediate with the accumulator,The contents of the accumulator are logically OR with the 8-bit data and the result is placed in the accumulator.
 LI,RLC,None,Rotate the accumulator left,Each binary bit of the accumulator is rotated left by one position. Bit D7 is placed in the position of D0 as well as in the Carry flag. CY is modified according to bit D7
 LI,RRC,None,Rotate the accumulator right,Each binary bit of the accumulator is rotated right by one position. Bit D0 is placed in the position of D7 as well as in the Carry flag. CY is modified according to bit D0.
@@ -22,3 +22,73 @@ LI,RAR,None,Rotate the accumulator right through carry,"Each binary bit of the a
 LI,CMA,None,Complement accumulator,The contents of the accumulator are complemented. No flags are affected.
 LI,CMC,None,Complement carry,The Carry flag is complemented. No other flags are affected.
 LI,STC,None,Set Carry,Set Carry.
+,,,,
+BI,JMP,16-bit address,Jump unconditinally,The program sequence is transferred to the memory address given in the operand.
+BI,JC,16-bit address,Jump on carry,The program sequence is transferred to the memory address given in the operand if CY=1.
+BI,JNC,16-bit address,Jump on no carry,The program sequence is transferred to the memory address given in the operand if CY=0.
+BI,JP,16-bit address,Jump on positive,The program sequence is transferred to the memory address given in the operand if S=0.
+BI,JM,16-bit address,Jump on minus,The program sequence is transferred to the memory address given in the operand if S=1.
+BI,JZ,16-bit address,Jump on zero,The program sequence is transferred to the memory address given in the operand if Z=1.
+BI,JNZ,16-bit address,Jump on no zero,The program sequence is transferred to the memory address given in the operand if Z=0.
+BI,JPE,16-bit address,Jump on parity even,The program sequence is transferred to the memory address given in the operand if P=1.
+BI,JPO,16-bit address,Jump on parity odd,The program sequence is transferred to the memory address given in the operand if P=0.
+BI,CALL,16-bit address,Call subroutine unconditionally,The program control is transferred to the subroutine present in the given memory address.
+BI,CC,16-bit address,Call on carry,The program control is transferred to the subroutine present in the given memory address if CY=1.
+BI,CNC,16-bit address,Call on no carry,The program control is transferred to the subroutine present in the given memory address if CY=0.
+BI,CP,16-bit address,Call on positive,The program control is transferred to the subroutine present in the given memory address if S=0.
+BI,CM,16-bit address,Call on minus,The program control is transferred to the subroutine present in the given memory address if S=1.
+BI,CZ,16-bit address,Call on zero,The program control is transferred to the subroutine present in the given memory address if Z=1.
+BI,CNZ,16-bit address,Call on no zero,The program control is transferred to the subroutine present in the given memory address if Z=0.
+BI,CPE,16-bit address,Call on parity even,The program control is transferred to the subroutine present in the given memory address if P=1.
+BI,CPO,16-bit address,Call on parity odd,The program control is transferred to the subroutine present in the given memory address if P=0.
+BI,RET,None,Return from subroutine unconditionally,The program control is returned from the subroutine to the calling program.
+BI,RC,None,Return on carry,The program control is returned from the subroutine to the calling program if CY=1.
+BI,RNC,None,Return on no carry,The program control is returned from the subroutine to the calling program if CY=0.
+BI,RP,None,Return on positive,The program control is returned from the subroutine to the calling program if S=0.
+BI,RM,None,Return on minus,The program control is returned from the subroutine to the calling program if S=1.
+BI,RZ,None,Return on zero,The program control is returned from the subroutine to the calling program if Z=1.
+BI,RNZ,None,Return on no zero,The program control is returned from the subroutine to the calling program if Z=0.
+BI,RPE,None,Return on parity even,The program control is returned from the subroutine to the calling program if P=1.
+BI,RPO,None,Return on parity odd,The program control is returned from the subroutine to the calling program if P=0.
+BI,PCHL,None,Load the program counter with HL contents,The contents of registers H & L are copied into the program counter. The contents of H are placed as the high-order byte and the contents of L as the low order byte.
+BI,RST,0-7,Restart,"The RST instruction is used as software instructions in a program to transfer the program execution to one of the following eight locations based on the operand: 0000H, 0008H, 0010H, 0018H, 0020H, 0028H, 0030H & 0038H."
+,,,,
+AI,ADD,R/M,Add register or memory to the accumulator,The contents of the register or memory are added to the contents of the accumulator and the result is stored in the accumulator.
+AI,ADC,R/M,Add register or memory to the accumulator with carry,"The contents of the register or memory & the carry flag are added to the contents of the accumulator and the
+result is stored in the accumulator."
+AI,ADI,8-bit data,Add the immediate to the accumulator,The 8-bit data is added to the contents of the accumulator and the result is stored in the accumulator.
+AI,ACI,8-bit data,Add the immediate to the accumulator with carry,The 8-bit data & the carry flag are added to the contents of the accumulator and the result is stored in the accumulator.
+AI,DAD,Reg. pair,Add the register pair to HL registers,The 16-bit data of the specified register pair are added to the contents of the HL register.
+AI,SUB,R/M,Subtract the register or memory from the accumulator,"The contents of the register or the memory are subtracted from the contents of the accumulator, and the result is stored in the accumulator."
+AI,SBB,R/M,Subtract the register or memory & borrow from the accumulator,The contents of the register or the memory & the borrow flag are subtracted from the contents of the accumulator and the result is placed in the accumulator.
+AI,SUI,8-bit data,Subtract the immediate from the accumulator,The 8-bit data is subtracted from the contents of the accumulator and the result is stored in the accumulator.
+AI,SBI,8-bit data,Subtract the immediate & borrow from the accumulator,The 8-bit data & the borrow flag are subtracted from the contents of the accumulator and the result is placed in the accumulator.
+AI,INR,R/M,Increment the register or memory by 1,The contents of the designated register or the memory are incremented by 1.
+AI,INX,R,Increment register pair by 1,The contents of the designated register pair are incremented by 1.
+AI,DCR,R/M,Decrement the register or memory by 1,The contents of the designated register or memory are decremented by 1.
+AI,DCX,R,Decrement register pair by 1,The contents of the designated register pair are decremented by 1.
+AI,DAA,None,Decimal adjust accumulator,"The contents of the accumulator are changed from a binary value to two 4-bit BCD digits.
+If the value of the low-order 4-bits in the accumulator is greater than 9 or if AC flag is set, the instruction adds 6 to the low-order four bits.
+If the value of the high-order 4-bits in the accumulator is greater than 9 or if the Carry flag is set, the instruction adds 6 to the high-order four bits."
+,,,,
+DTI,MOV,"Dt, Sc",Copy to Destination (Dt) from Source (Sc),This instruction copies the contents of the source register or memory into the destination register or memory without any alteration.
+DTI,MVI,"Dt, 8-bit data",Move immediate 8-bit data to destination (Dt),The 8-bit data is stored in the destination register or memory.
+DTI,LDA,16-bit address,Load the accumulator,"The contents of a memory location, specified by a 16-bit address in the operand, are copied to the accumulator."
+DTI,LDAX,B/D Reg. pair,Load the accumulator indirect,The contents of the designated register pair point to a memory location. This instruction copies the contents of that memory location into the accumulator.
+DTI,LXI,"Reg. pair, 16-bit data",Load the register pair with immediate,The instruction loads the 16-bit data in the designated register pair.
+DTI,LHLD,16-bit address,Load H & L registers direct,The instruction copies the contents of the memory location pointed out by the address into register L and copies the contents of the next memory location into register H.
+DTI,STA,16-bit address,Store the accumulator,The contents of the accumulator are copied into the memory location specified by the operand.
+DTI,STAX,16-bit address,Store the accumulator indirect,The contents of the accumulator are copied into the memory location specified by the contents of the operand.
+DTI,SHLD,16-bit address,Store H & L registers direct,The contents of register L are stored in the memory location specified by the 16-bit address in the operand and the contents of H register are stored into the next memory location by incrementing the operand.
+DTI,XCHG,None,Exchange H & L with D & E,"The contents of register H are exchanged with the contents of register D, and the contents of register L are exchanged with the contents of register E."
+DTI,SPHL,None,Copy H & L registers to the stack pointer,The instruction loads the contents of the H & L registers into the stack pointer register. The contents of the H register provide the high-order address and the contents of the L register provide the low-order address.
+DTI,XTHL,None,Exchange H & L with the top of stack,"The contents of the L register are exchanged with the stack location pointed out by the contents of the stack pointer register.
+The contents of the H register are exchanged with the next stack location (SP+1)."
+DTI,PUSH,Reg. pair,Push register pair onto the stack,"The contents of the register pair designated in the operand are copied onto the stack in the following sequence.
+The stack pointer register is decremented and the contents of the high order register (B, D, H. A) are copied into that location.
+The stack pointer register is decremented again and the contents of the low-order register (C, E, L, flags) are copied to that location."
+DTI,POP,Reg. pair,Pop off stack to the register pair,"The contents of the memory location pointed out by the stack pointer register are copied to the low-order register (C, E, L, status flags) of the operand.
+The stack pointer is incremented by 1 and the contents of that memory location are copied to the high-order register (B, D, H, A) of the operand.
+The stack pointer register is again incremented by 1."
+DTI,OUT,8-bit port address,Output the data from the accumulator to a port with 8-bit address,The contents of the accumulator are copied into the I/O port specified by the operand.
+DTI,IN,8-bit port address,Input the data from the accumulator to a port with 8-bit address,The contents of the input port designated in the operand are read and loaded into the accumulator.
